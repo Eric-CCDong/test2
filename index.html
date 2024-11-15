@@ -27,5 +27,11 @@
     <div>asdadsasdadsaasdad</div>
     <div>asdadsasdadsaasdad</div>
     <div>asdadsasdadsaasdad</div>
+    <script>
+  document.addEventListener('touchmove', function (event) {
+    // 阻止默认行为，包括下拉刷新等
+    event.preventDefault();
+  }, { passive: false });  // 注意这里的{ passive: false }很重要，因为某些浏览器会默认启用passive模式，这会导致preventDefault无效
+</script>
   </body>
 </html>
