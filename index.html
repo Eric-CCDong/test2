@@ -4,81 +4,69 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tabs with Swiper</title>
-    <style></style>
+    <style>
+      .container {
+        height: 100vh;
+        width: 100vh;
+        overflow: auto;
+        overscroll-behavior: contain;
+      }
+    </style>
   </head>
   <body>
-    <div>test</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div style="margin-top: 300px; height: 300px; background-color: aqua"></div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div style="margin-top: 300px; height: 300px; background-color: aqua"></div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div style="margin-top: 300px; height: 300px; background-color: aqua"></div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-    <div>asdadsasdadsaasdad</div>
-  <script>
-  let lastTouchY = 0;
-
-  function handleTouchStart(event) {
-    lastTouchY = event.touches[0].clientY;  // 记录触摸开始的位置
-  }
-
-  function handleTouchMove(event) {
-    if (lastTouchY === 0) {
-      return;  // 如果没有记录到上一次的触摸位置，直接返回
-    }
-
-    const currentTouchY = event.touches[0].clientY;
-    const deltaY = currentTouchY - lastTouchY;
-
-    // 检查是否在页面顶部且是向下的滑动
-    if (document.documentElement.scrollTop === 0 && deltaY > 7) {
-      event.preventDefault();  // 阻止默认行为，避免触发下拉刷新
-    }
-
-    lastTouchY = currentTouchY;  // 更新触摸位置
-  }
-
-  window.addEventListener('touchstart', handleTouchStart, { passive: true });
-  window.addEventListener('touchmove', handleTouchMove, { passive: false });
-
-</script>
+    <div class="container">
+      <div>test</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div
+        style="margin-top: 300px; height: 300px; background-color: aqua"
+      ></div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div
+        style="margin-top: 300px; height: 300px; background-color: aqua"
+      ></div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div
+        style="margin-top: 300px; height: 300px; background-color: aqua"
+      ></div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+      <div>asdadsasdadsaasdad</div>
+    </div>
   </body>
 </html>
