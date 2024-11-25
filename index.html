@@ -9,7 +9,7 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box; /* 确保内边距和边框包含在高度内 */
-        overscroll-behavior: none;
+        overscroll-behavior: contain;
       }
       html,
       body,
@@ -27,6 +27,17 @@
         overflow: auto;
         overscroll-behavior: contain;
       }
+      #draggableDiv {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-color: #f00;
+        color: white;
+        text-align: center;
+        line-height: 100px;
+        cursor: move;
+        transition: transform 0.3s ease-out; /* 平滑过渡 */
+    }
     </style>
   </head>
   <body>
@@ -38,5 +49,61 @@
         <div>asdadsasdadsaasdad</div>
       </div>
     </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const draggableDiv = document.getElementById('draggableDiv');
+        let isDragging = false;
+        let startX, startY, currentX, currentY;
+      
+        // 触摸开始
+        draggableDiv.addEventListener('touchstart', function(e) {
+          isDragging = true;
+          startX = e.touches[0].clientX - draggableDiv.offsetLeft;
+          startY = e.touches[0].clientY - draggableDiv.offsetTop;
+        });
+      
+        // 触摸移动
+        draggableDiv.addEventListener('touchmove', function(e) {
+          if (!isDragging) return;
+          e.preventDefault();
+          currentX = e.touches[0].clientX - startX;
+          currentY = e.touches[0].clientY - startY;
+          // 设置边界限制
+          const maxX = window.innerWidth - draggableDiv.offsetWidth;
+          const maxY = window.innerHeight - draggableDiv.offsetHeight;
+          currentX = Math.max(0, Math.min(currentX, maxX));
+          currentY = Math.max(0, Math.min(currentY, maxY));
+          draggableDiv.style.transform = `translate(${currentX}px, ${currentY}px)`;
+        });
+      
+        // 触摸结束
+        draggableDiv.addEventListener('touchend', function() {
+          isDragging = false;
+        });
+      
+        // 鼠标操作（为了桌面端兼容）
+        draggableDiv.addEventListener('mousedown', function(e) {
+          isDragging = true;
+          startX = e.clientX - draggableDiv.offsetLeft;
+          startY = e.clientY - draggableDiv.offsetTop;
+        });
+      
+        draggableDiv.addEventListener('mousemove', function(e) {
+          if (!isDragging) return;
+          e.preventDefault();
+          currentX = e.clientX - startX;
+          currentY = e.clientY - startY;
+          const maxX = window.innerWidth - draggableDiv.offsetWidth;
+          const maxY = window.innerHeight - draggableDiv.offsetHeight;
+          currentX = Math.max(0, Math.min(currentX, maxX));
+          currentY = Math.max(0, Math.min(currentY, maxY));
+          draggableDiv.style.transform = `translate(${currentX}px, ${currentY}px)`;
+        });
+      
+        draggableDiv.addEventListener('mouseup', function() {
+          isDragging = false;
+        });
+      });
+    </script>
   </body>
 </html>
