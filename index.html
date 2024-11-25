@@ -27,6 +27,12 @@
         overflow: auto;
         overscroll-behavior: contain;
       }
+      .draggableWrapper {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        background-color: #f00;
+      }
       #draggableDiv {
         position: absolute;
         width: 100px;
@@ -48,6 +54,12 @@
         <div>asdadsasdadsaasdad</div>
         <div>asdadsasdadsaasdad</div>
       </div>
+      <div class="draggableWrapper">
+        <div id="draggableDiv">
+          <p>Drag me!</p>
+        </div>
+      </div>
+
     </div>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
