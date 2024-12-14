@@ -3,117 +3,106 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tabs with Swiper</title>
+    <title>Horizontal Scrollable Tabs with iScroll</title>
+    <!-- CSS -->
     <style>
-      * {
+      body {
         margin: 0;
-        padding: 0;
-        box-sizing: border-box; /* 确保内边距和边框包含在高度内 */
-        overscroll-behavior: none;
+        font-family: Arial, sans-serif;
       }
-      html,
-      body,
-      h1 {
-        overflow-x: hidden; /* Disable horizontal scrolling globally */
-        background-color: black;
-        color: white; /* Optional: Sets text color to white for readability */
-        margin: 0;
-        padding: 0;
-        height:100%;
+
+      .wrapper {
+        width: 100%;
+        overflow: hidden;
       }
-      .container {
-        height:100%;
-        width: 100vw;
-        overflow: auto;
-        overscroll-behavior: contain;
-      }
-      .draggableWrapper {
+
+      .scroller {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        width: 100%;
+        height: 50px; /* 设置滚动容器的高度 */
         position: relative;
-        width: 100px;
-        height: 100px;
-        background-color: #f00;
+        z-index: 1;
+        -webkit-transform: translateZ(0);
+        -moz-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        -o-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-text-size-adjust: none;
+        -moz-text-size-adjust: none;
+        -ms-text-size-adjust: none;
+        -o-text-size-adjust: none;
+        text-size-adjust: none;
       }
-      #draggableDiv {
+
+      .tabs {
+        display: flex;
+        white-space: nowrap;
         position: absolute;
-        width: 100px;
-        height: 100px;
-        background-color: #f00;
-        color: white;
+        width: auto;
+        padding: 0;
+        margin: 0;
+      }
+
+      .tab {
+        min-width: 100px; /* 每个tab的最小宽度 */
+        padding: 10px;
         text-align: center;
-        line-height: 100px;
-        cursor: move;
-        transition: transform 0.3s ease-out; /* 平滑过渡 */
-    }
+        flex-shrink: 0; /* 防止 tab 在缩小窗口时缩小 */
+        cursor: pointer;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+        margin-right: 10px;
+      }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div>
-        <h1>part 1.</h1>
-        <div>test4</div>
-        <div>asdadsasdadsaasdad</div>
-        <div>asdadsasdadsaasdad</div>
-      </div>
-      <div class="draggableWrapper">
-        <div id="draggableDiv">
-          <p>Drag me!</p>
+    <div class="wrapper">
+      <div id="scroll-container" class="scroller">
+        <div class="tabs">
+          <div class="tab">Tab 1</div>
+          <div class="tab">Tab 2</div>
+          <div class="tab">Tab 3</div>
+          <div class="tab">Tab 4</div>
+          <div class="tab">Tab 5</div>
+          <div class="tab">Tab 6</div>
+          <!-- Add more tabs as needed -->
         </div>
       </div>
-
     </div>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/iscroll/build/iscroll.min.js"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const draggableDiv = document.getElementById('draggableDiv');
-        let isDragging = false;
-        let startX, startY, currentX, currentY;
-      
-        // 触摸开始
-        draggableDiv.addEventListener('touchstart', function(e) {
-          isDragging = true;
-          startX = e.touches[0].clientX - draggableDiv.offsetLeft;
-          startY = e.touches[0].clientY - draggableDiv.offsetTop;
-        });
-      
-        // 触摸移动
-        draggableDiv.addEventListener('touchmove', function(e) {
-          if (!isDragging) return;
-          e.preventDefault();
-          currentX = e.touches[0].clientX - startX;
-          currentY = e.touches[0].clientY - startY;
-          // 设置边界限制
-          const maxX = window.innerWidth - draggableDiv.offsetWidth;
-          const maxY = window.innerHeight - draggableDiv.offsetHeight;
-          currentX = Math.max(0, Math.min(currentX, maxX));
-          currentY = Math.max(0, Math.min(currentY, maxY));
-          draggableDiv.style.transform = `translate(${currentX}px, ${currentY}px)`;
-        });
-      
-        // 触摸结束
-        draggableDiv.addEventListener('touchend', function() {
-          isDragging = false;
-        });
-      
-        // 鼠标操作（为了桌面端兼容）
-        draggableDiv.addEventListener('mousedown', function(e) {
-          isDragging = true;
-          startX = e.clientX - draggableDiv.offsetLeft;
-          startY = e.clientY - draggableDiv.offsetTop;
-        });
-      
-        draggableDiv.addEventListener('mousemove', function(e) {
-          if (!isDragging) return;
-          e.preventDefault();
-          currentX = e.clientX - startX;
-          currentY = e.clientY - startY;
-          const maxX = window.innerWidth - draggableDiv.offsetWidth;
-          const maxY = window.innerHeight - draggableDiv.offsetHeight;
-          currentX = Math.max(0, Math.min(currentX, maxX));
-          currentY = Math.max(0, Math.min(currentY, maxY));
-          draggableDiv.style.transform = `translate(${currentX}px, ${currentY}px)`;
-        });
-      
-        draggableDiv.addEventListener('mouseup', function() {
-          isDragging = false;
+      document.addEventListener("DOMContentLoaded", function () {
+        var scrollContainer = document.getElementById("scroll-container");
+        var myScroll;
+
+        function init() {
+          myScroll = new IScroll(scrollContainer, {
+            scrollX: true, // 允许水平滚动
+            scrollY: false, // 禁用垂直滚动
+            mouseWheel: true, // 启用鼠标滚轮支持
+            click: true, // 启用点击事件
+            bounce: true, // 启用橡皮筋效果
+            interactiveScrollbars: true, // 启用交互式滚动条
+            shrinkScrollbars: "scale", // 缩放滚动条
+            fadeScrollbars: true, // 滚动条淡入淡出
+            preventDefault: false, // 防止默认事件
+          });
+        }
+
+        init();
+
+        // Refresh iScroll on window resize to handle dynamic changes
+        window.addEventListener("resize", function () {
+          setTimeout(function () {
+            myScroll.refresh();
+          }, 0);
         });
       });
     </script>
